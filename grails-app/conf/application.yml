@@ -100,9 +100,9 @@ dataSource:
 
 environments:
     development:
-        fileLocation: "/Users/styl3r/Downloads/Insur/"
+        fileLocation: "/apps/home/src/main/misc/"
 
     test:
-        fileLocation: "/Users/styl3r/Downloads/Insur/"
+        fileLocation: "/apps/home/src/main/misc/"
     production:
-        fileLocation: "/root/docs/"
+        fileLocation: "/apps/home/src/main/misc/"

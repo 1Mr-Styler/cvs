@@ -1,4 +1,6 @@
 Thumbs.db
+*.jpg
+*.png
 .DS_Store
 .gradle
 build/

@@ -1,13 +1,12 @@
 package cvs
 
 import grails.gorm.transactions.Transactional
-import org.springframework.util.StringUtils
 
 @Transactional
 class MainService {
 
     File toFile(def stuff) {
-        File convFile = new File("/Users/styl3r/IdeaProjects/CVS/cvs/grails-app/assets/images/" + stuff.getOriginalFilename());
+        File convFile = new File("/apps/home/grails-app/assets/images/" + stuff.getOriginalFilename());
 //        File convFile = new File(System.getProperty("java.io.tmpdir") + "/" + stuff.getOriginalFilename());
         stuff.transferTo(convFile);
 
@@ -16,10 +15,11 @@ class MainService {
 
     String ocr(String file, String path) {
         StringBuilder pred = new StringBuilder()
-        String filepath = "/Users/styl3r/IdeaProjects/CVS/cvs/grails-app/assets/images/"
+        String filepath = "/apps/home/grails-app/assets/images/"
 
         try {
-            def proc = "python ${path}ocr.pyc $filepath${file} checkpoint/model.ckpt-92900.data-00000-of-00001".execute()
+            String cmd = "python2.7 ${path}ocr.pyc $filepath${file} checkpoint/model.ckpt-92900.data-00000-of-00001"
+            def proc = cmd.execute()
             def ypred = proc.in.getText('UTF-8').split("\n")
 
             for (String line : ypred) {
