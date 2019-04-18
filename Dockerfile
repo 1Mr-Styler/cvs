@@ -26,16 +26,10 @@ RUN [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-
 
 RUN source /root/.bashrc
 
-RUN ["mkdir", "-p", "/root/.sdkman/archives"] 
-RUN ["mkdir", "-p", "/root/.gradle"] 
-COPY ./sdkman/.sdkman/archives/ /root/.sdkman/archives
-COPY ./sdkman/.gradle /root/.gradle
-
 RUN source "$SDKMAN_DIR/bin/sdkman-init.sh" && sdk install java $JAVA_VERSION
 WORKDIR /apps/home
 
 EXPOSE 8080
-EXPOSE 5005
 ENTRYPOINT ["./docker-entry.sh"]
 
 

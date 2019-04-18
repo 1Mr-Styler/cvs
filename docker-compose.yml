@@ -8,5 +8,4 @@ services:
       - .:/apps/home
     ports:
       - 8092:8080
-      - 5092:5005
 
