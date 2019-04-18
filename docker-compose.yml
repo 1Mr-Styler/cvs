@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  cvs:
+    build: .
+    restart: always
+    volumes:
+      - .:/apps/home
+    ports:
+      - 8092:8080
+      - 5092:5005
+
