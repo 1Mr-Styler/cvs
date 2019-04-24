@@ -2,6 +2,6 @@
 
 export JAVA_HOME=/root/.sdkman/candidates/java/current
 
-echo "~~~~~~~~~~~~~~~~~~~~~~~~~\t Running CVS Server\n"
+echo -e "~~~~~~~~~~~~~~~~~~~~~~~~~\t Running CVS Server\n"
 
-./gradlew bootRun
+./gradlew bootRun --debug-jvm

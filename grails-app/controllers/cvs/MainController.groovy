@@ -17,9 +17,11 @@ class MainController {
 
         File chequeFile = mainService.toFile(request.getFile("check"))
         String chequeFilename = chequeFile.name
+        String wdir = mainService.processFile(chequeFilename)
 
         flash.hasUpload = true
-        flash.image = chequeFilename
+        flash.image = "$wdir/main.png"
+        flash.wdir = "$wdir"
 
         //Run OCR
         String path = grailsApplication.config.fileLocation.toString()
@@ -27,12 +29,13 @@ class MainController {
         println(ocr)
         Map extract = mainService.extract(ocr)
         println(extract)
-        double d = mainService.word2Num(extract.worded)
+        String worded = mainService.getWorded(wdir)
+        double d = mainService.word2Num(worded)
 
         flash.date = extract.date
         flash.amount = extract.amount
-        flash.worded = extract.worded
-        flash.compare = "${d} == ${extract.amount} ? ${d == extract.amount.toDouble()}"
+        flash.worded = worded
+        flash.compare = "${d} == ${extract.amount} ? ${d == extract.amount.replace(",", "").toDouble()}"
 
 
         chain action: "index"
