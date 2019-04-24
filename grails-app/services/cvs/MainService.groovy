@@ -6,7 +6,7 @@ import grails.gorm.transactions.Transactional
 class MainService {
 
     File toFile(def stuff) {
-        File convFile = new File("/apps/home/grails-app/assets/images/" + stuff.getOriginalFilename());
+        File convFile = new File("/apps/home/grails-app/assets/images/" + stuff.getOriginalFilename().replace(" ", ""));
 //        File convFile = new File(System.getProperty("java.io.tmpdir") + "/" + stuff.getOriginalFilename());
         stuff.transferTo(convFile);
 
@@ -336,10 +336,15 @@ class MainService {
         }
         cmd += qF
         def proc = cmd.execute()
+        def sout = new StringBuilder(), serr = new StringBuilder()
+        proc.consumeProcessOutput(sout, serr)
         proc.waitFor()
-        def data = proc.in.getText('UTF-8').split("\n")
+        def data = sout.toString()//proc.in.getText('UTF-8')
 
-        data[-1].take(5).toDouble()
+
+        println(data.trim().split("\n"))
+
+        data.trim().split("\n")[-1]?.take(5)?.toDouble() ?: 0.0
     }
 
 }

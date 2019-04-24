@@ -46,7 +46,7 @@ class MainController {
         String worded = mainService.getWorded(wdir)
         double d = mainService.word2Num(worded)
 
-        flash.confidence = mainService.sigrec(sigFileNames, "/apps/home/grails-app/assets/images/" + chequeFilename)
+        flash.confidence = mainService.sigrec(sigFileNames, "/apps/home/grails-app/assets/images/$wdir/signature.png")
         flash.date = extract.date
         flash.amount = extract.amount
         flash.worded = worded
