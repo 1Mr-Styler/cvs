@@ -14,8 +14,22 @@ class MainController {
             redirect action: 'index'
             return
         }
+        File chequeFile
+        ArrayList<String> sigFileNames = new ArrayList<>()
 
-        File chequeFile = mainService.toFile(request.getFile("check"))
+        try {
+            def sigs = request.getFiles("sig")
+            chequeFile = mainService.toFile(request.getFile("check"))
+
+            sigs.each { sig ->
+                sigFileNames.add("/apps/home/grails-app/assets/images/" + mainService.toFile(sig).name)
+            }
+
+        } catch (e) {
+            redirect action: 'index'
+            return
+        }
+
         String chequeFilename = chequeFile.name
         String wdir = mainService.processFile(chequeFilename)
 
@@ -32,6 +46,7 @@ class MainController {
         String worded = mainService.getWorded(wdir)
         double d = mainService.word2Num(worded)
 
+        flash.confidence = mainService.sigrec(sigFileNames, "/apps/home/grails-app/assets/images/" + chequeFilename)
         flash.date = extract.date
         flash.amount = extract.amount
         flash.worded = worded

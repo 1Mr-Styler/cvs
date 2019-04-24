@@ -328,4 +328,18 @@ class MainService {
         rc.doubleValue()
     }
 
+    Double sigrec(ArrayList<String> sigs, String qF) {
+
+        String cmd = "python2.7 /apps/home/src/main/misc/sigrec.pyc "
+        sigs.each { sig ->
+            cmd += sig + " "
+        }
+        cmd += qF
+        def proc = cmd.execute()
+        proc.waitFor()
+        def data = proc.in.getText('UTF-8').split("\n")
+
+        data[-1].take(5).toDouble()
+    }
+
 }

@@ -87,7 +87,7 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <th scope="row">N/A</th>
+                                <th scope="row">${flash.confidence}%</th>
                                 <td>${flash.date}</td>
                                 <td>${flash.worded}</td>
                                 <td>${flash.amount}</td>
